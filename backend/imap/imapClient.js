@@ -30,9 +30,9 @@ async function handleNewEmail(client, msg, label) {
   if (exists) return;
 
   const parsed = await simpleParser(msg.source);
-  const emailText = parsed.text?.trim() || "⚠️ No text extracted";
+  const emailText = parsed.text?.trim() || " No text extracted";
 
-  // Save basic email info first
+  // Save basic email 
   const saved = await Email.create({
     messageId: msg.envelope.messageId,
     from: msg.envelope.from?.[0]?.address || "",
@@ -41,18 +41,18 @@ async function handleNewEmail(client, msg, label) {
     date: msg.envelope.date,
     text: emailText,
     account: label,
-    category: "Uncategorized", // default in case AI fails
+    category: "Uncategorized", // default 
   });
 
   console.log(`📩 Saved: ${saved.subject}`);
   await indexEmail(saved);
 
-  // Try categorizing using Gemini AI
+  
   try {
     const aiCategory = await categorizeEmail(emailText);
     saved.category = aiCategory || "Uncategorized";
 
-    // Suggest reply only if email is Interested or Meeting Booked
+    
     if (saved.category === "Interested" || saved.category === "Meeting Booked") {
       const { suggestReply } = require("../utils/ai");
       const reply = await suggestReply(emailText);
@@ -66,14 +66,14 @@ async function handleNewEmail(client, msg, label) {
     }
   } catch (err) {
     console.error("❌ AI categorization or reply failed:", err.message);
-    // Don't crash, email is still saved with default values
+    
   }
 }
 
 async function startIMAPSync() {
   for (const acc of accounts) {
     if (!acc.user || !acc.pass) {
-      console.warn(`⚠️ Missing credentials for ${acc.label}`);
+      console.warn(` Missing credentials for ${acc.label}`);
       continue;
     }
 
