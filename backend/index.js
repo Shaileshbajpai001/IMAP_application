@@ -2,9 +2,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const serverless = require("serverless-http");
 const { startIMAPSync } = require("./imap/imapClient");
 const Email = require("./models/emailModel");
 
+//
+//
 dotenv.config();
 
 const app = express();
@@ -40,6 +43,10 @@ app.get("/emails", async (req, res) => {
 app.use("/emails", emailRoutes);
 
 
-app.listen(PORT, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server running at http://localhost:${PORT}`);
+// });
+
+//
+module.exports = serverless(app);
+
