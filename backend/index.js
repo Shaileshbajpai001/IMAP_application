@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
-const serverless = require("serverless-http");
+const serverless = require("serverless-http"); // for vercel
 const { startIMAPSync } = require("./imap/imapClient");
 const Email = require("./models/emailModel");
 
