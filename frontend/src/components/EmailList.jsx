@@ -66,36 +66,40 @@ function EmailList() {
           🔍 Search
         </button>
       </form>
-
+{/* 
+     {/* /*
       {/* List */}
+    
+
       <div className="space-y-4">
-        {emails
-          .filter((email) => email.account === selectedAccount) // NEW
-          .map((email) => (
-            <div
-              key={email._id}
-              className="bg-gray-800 border border-gray-700 p-4 rounded-xl shadow-md hover:bg-gray-700 transition cursor-pointer"
-              onClick={() => setSelectedEmail(email)}
-            >
-              <p className="text-lg font-semibold text-blue-300">
-                {email.subject || "(No Subject)"}
-              </p>
-              <p className="text-sm text-gray-400 mt-1">From: {email.from}</p>
-              <p className="text-sm text-gray-400">To: {email.to?.join(", ")}</p>
-              <p className="text-sm mt-2 text-gray-300">
-                {(email.text || "").slice(0, 120)}
-                {email.text?.length > 120 ? "..." : ""}
-              </p>
-              <p className="text-sm mt-1">
-                Category:{" "}
-                <span className="text-green-400">
-                  {email.category || "Uncategorized"}
-                </span>
-              </p>
-              <p className="text-xs text-blue-500 mt-1">Click to expand ⬇️</p>
-            </div>
-          ))}
+  {(Array.isArray(emails) ? emails : [])
+    .filter((email) => email.account === selectedAccount)
+    .map((email) => (
+      <div
+        key={email._id}
+        className="bg-gray-800 border border-gray-700 p-4 rounded-xl shadow-md hover:bg-gray-700 transition cursor-pointer"
+        onClick={() => setSelectedEmail(email)}
+      >
+        <p className="text-lg font-semibold text-blue-300">
+          {email.subject || "(No Subject)"}
+        </p>
+        <p className="text-sm text-gray-400 mt-1">From: {email.from}</p>
+        <p className="text-sm text-gray-400">To: {email.to?.join(", ")}</p>
+        <p className="text-sm mt-2 text-gray-300">
+          {(email.text || "").slice(0, 120)}
+          {email.text?.length > 120 ? "..." : ""}
+        </p>
+        <p className="text-sm mt-1">
+          Category:{" "}
+          <span className="text-green-400">
+            {email.category || "Uncategorized"}
+          </span>
+        </p>
+        <p className="text-xs text-blue-500 mt-1">Click to expand ⬇️</p>
       </div>
+    ))}
+</div>
+
 
       {/* mail Modal */}
       {selectedEmail && (

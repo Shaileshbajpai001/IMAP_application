@@ -4,7 +4,7 @@
 //     autoprefixer: {},
 //   },
 // };
-
+//poatcss.config.cjs
 module.exports = {
   plugins: {
     tailwindcss: {},
